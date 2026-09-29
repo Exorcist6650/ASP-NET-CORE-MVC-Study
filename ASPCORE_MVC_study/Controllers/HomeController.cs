@@ -6,15 +6,26 @@ namespace ASPCORE_MVC_study.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfiguration _configuration;
+
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
+
             _logger = logger;
+            _configuration = configuration;
+        }
+
+        public IActionResult PrintInfo()
+        {
+            return View();
         }
 
         public IActionResult Index()
         {
+            var adminName = _configuration.GetSection("Name");
+            var password = _configuration.GetSection("Password");
             return View();
         }
 
